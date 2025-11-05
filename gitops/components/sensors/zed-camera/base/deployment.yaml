@@ -32,11 +32,17 @@ spec:
           value: "0"  # Must match staer-client
         - name: ZED_CAMERA_MODEL
           value: "zed2i"  # Adjust based on actual camera model
+        - name: LD_LIBRARY_PATH
+          value: "/usr/local/cuda/lib64:/usr/lib/aarch64-linux-gnu/nvidia:${LD_LIBRARY_PATH}"
         volumeMounts:
         # Mount USB bus for camera control
         # Note: /dev/video* devices will be created automatically when camera is connected
         - name: usb-devices
           mountPath: /dev/bus/usb
+        # Mount NVIDIA CUDA libraries from host for GPU access
+        - name: nvidia-libs
+          mountPath: /usr/lib/aarch64-linux-gnu/nvidia
+          readOnly: true
         resources:
           requests:
             memory: "1Gi"
@@ -49,4 +55,8 @@ spec:
       - name: usb-devices
         hostPath:
           path: /dev/bus/usb
+          type: Directory
+      - name: nvidia-libs
+        hostPath:
+          path: /usr/lib/aarch64-linux-gnu/nvidia
           type: Directory
