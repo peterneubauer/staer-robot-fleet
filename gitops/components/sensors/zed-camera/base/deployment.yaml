@@ -46,7 +46,7 @@ spec:
           limits:
             memory: "4Gi"
             cpu: "4000m"
-            nvidia.com/gpu: "1"  # Request GPU for depth processing
+            # nvidia.com/gpu: "1"  # TODO: Enable when GPU support is configured in K3s
       volumes:
       - name: dev-video0
         hostPath:
