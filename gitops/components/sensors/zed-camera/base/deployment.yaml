@@ -45,10 +45,10 @@ spec:
           readOnly: true
         resources:
           requests:
-            memory: "1Gi"
+            memory: "2Gi"
             cpu: "1000m"
           limits:
-            memory: "4Gi"
+            memory: "8Gi"
             cpu: "4000m"
             # nvidia.com/gpu: "1"  # TODO: Enable when GPU support is configured in K3s
       volumes:
