@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Tailscale collection for stable environment
+# Creates Tailscale network for remote robot cluster access
+
+resources:
+  # Placeholder - will be implemented with actual tailscale components
+  # - ../../../components/infrastructure/networking/tailscale/stable
