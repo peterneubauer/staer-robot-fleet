@@ -1,0 +1,13 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: staer-client
+  namespace: flux-system
+spec:
+  interval: 1m
+  path: ./gitops/components/apps/staer-client/overlays/stable
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: staer-robot-fleet
+  timeout: 2m

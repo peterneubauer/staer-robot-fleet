@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: staer-client
+  namespace: staer
+  labels:
+    app: staer-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: staer-client
+  template:
+    metadata:
+      labels:
+        app: staer-client
+    spec:
+      serviceAccountName: staer-client
+      containers:
+      - name: staer-client
+        image: registry.digitalocean.com/staer/staer-client:stable
+        imagePullPolicy: Always
+        env:
+        - name: DEVICE_UUID
+          valueFrom:
+            secretKeyRef:
+              name: staer-tokens
+              key: device-uuid
+        - name: TAILSCALE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: staer-tokens
+              key: tailscale-token
+        - name: DOCTL_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: staer-tokens
+              key: doctl-token
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "2000m"
+      imagePullSecrets:
+      - name: staer-registry

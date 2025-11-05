@@ -2,10 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 # Stable cluster configuration for robot fleet
-# Includes robot fleet app
-# Note: staer-client and tailscale collections disabled until components are implemented
+# Includes robot fleet app and staer-client
 
 resources:
   - ../../collections/stable/robot-fleet
-  # - ../../collections/stable/staer-client  # TODO: Enable when components are ready
+  - ../../collections/stable/staer-client
   # - ../../collections/stable/tailscale     # TODO: Enable when components are ready

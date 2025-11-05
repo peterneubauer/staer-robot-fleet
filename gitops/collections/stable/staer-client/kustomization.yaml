@@ -5,5 +5,4 @@ kind: Kustomization
 # ROS 2 robot client for Staer cloud platform
 
 resources:
-  # Placeholder - will be implemented with actual staer-client components
-  # - ../../../components/apps/staer-client/stable
+  - ../../../components/apps/staer-client/stable
