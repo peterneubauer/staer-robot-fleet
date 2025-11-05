@@ -49,6 +49,9 @@ spec:
         # Mount Tegra camera and GPU devices
         - name: tegra-devices
           mountPath: /dev
+        # Mount argus daemon socket for camera access
+        - name: argus-socket
+          mountPath: /tmp/argus_socket
         resources:
           requests:
             memory: "2Gi"
@@ -70,3 +73,7 @@ spec:
         hostPath:
           path: /dev
           type: Directory
+      - name: argus-socket
+        hostPath:
+          path: /tmp/argus_socket
+          type: Socket
