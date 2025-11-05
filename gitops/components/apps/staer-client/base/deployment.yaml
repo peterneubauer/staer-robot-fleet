@@ -18,7 +18,7 @@ spec:
       serviceAccountName: staer-client
       containers:
       - name: staer-client
-        image: registry.digitalocean.com/staer/staer-client:stable
+        image: registry.digitalocean.com/staer/staer-staer-client:v0.6.19
         imagePullPolicy: Always
         env:
         - name: DEVICE_UUID
