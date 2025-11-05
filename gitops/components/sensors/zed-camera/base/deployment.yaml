@@ -34,6 +34,9 @@ spec:
           value: "zed2i"  # Adjust based on actual camera model
         - name: LD_LIBRARY_PATH
           value: "/usr/local/cuda/lib64:/usr/lib/aarch64-linux-gnu/nvidia:${LD_LIBRARY_PATH}"
+        # Tegra hardware access for camera
+        - name: DISPLAY
+          value: ":0"
         volumeMounts:
         # Mount USB bus for camera control
         # Note: /dev/video* devices will be created automatically when camera is connected
@@ -43,6 +46,9 @@ spec:
         - name: nvidia-libs
           mountPath: /usr/lib/aarch64-linux-gnu/nvidia
           readOnly: true
+        # Mount Tegra camera and GPU devices
+        - name: tegra-devices
+          mountPath: /dev
         resources:
           requests:
             memory: "2Gi"
@@ -59,4 +65,8 @@ spec:
       - name: nvidia-libs
         hostPath:
           path: /usr/lib/aarch64-linux-gnu/nvidia
+          type: Directory
+      - name: tegra-devices
+        hostPath:
+          path: /dev
           type: Directory
