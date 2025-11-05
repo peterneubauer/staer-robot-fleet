@@ -19,13 +19,12 @@ spec:
       hostNetwork: false  # ROS2 DDS works fine without hostNetwork
       containers:
       - name: zed-wrapper
-        # PLACEHOLDER: Using base ROS2 image until custom ZED image is built
-        # TODO: Build custom image using:
-        #   ./jetson_build_dockerfile_from_sdk_and_l4T_version.sh l4t-r36.3.0 zedsdk-4.2.5
+        # Using ZED ROS2 wrapper image with SDK 5.0.0
+        # Built with: ./jetson_build_dockerfile_from_sdk_and_l4T_version.sh l4t-r36.3.0 zedsdk-5.0.0
         #   from https://github.com/stereolabs/zed-ros2-wrapper/tree/master/docker
-        image: dustynv/ros:humble-ros-base-l4t-r36.3.0
+        image: registry.digitalocean.com/staer/ros_zed_2i:latest
         imagePullPolicy: Always
-        command: ["/bin/bash", "-c", "sleep infinity"]  # Keep container running
+        command: ["/bin/bash", "-c", "ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i"]
         securityContext:
           privileged: true  # Required for USB camera access
         env:
