@@ -5,5 +5,4 @@ kind: Kustomization
 # Creates Tailscale network for remote robot cluster access
 
 resources:
-  # Placeholder - will be implemented with actual tailscale components
-  # - ../../../components/infrastructure/networking/tailscale/stable
+  - ../../../components/infrastructure/networking/tailscale/stable

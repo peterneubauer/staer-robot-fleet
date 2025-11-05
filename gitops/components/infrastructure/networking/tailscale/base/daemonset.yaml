@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: tailscale
+  namespace: tailscale
+spec:
+  selector:
+    matchLabels:
+      app: tailscale
+  template:
+    metadata:
+      labels:
+        app: tailscale
+    spec:
+      serviceAccountName: tailscale
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: tailscale
+        image: tailscale/tailscale:stable
+        env:
+        - name: TS_KUBE_SECRET
+          value: "tailscale-state"
+        - name: TS_USERSPACE
+          value: "false"
+        - name: TS_AUTH_KEY
+          valueFrom:
+            secretKeyRef:
+              name: staer-tokens
+              key: tailscale-token
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: TS_HOSTNAME
+          value: "$(NODE_NAME)"
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+        volumeMounts:
+        - name: dev-net-tun
+          mountPath: /dev/net/tun
+      volumes:
+      - name: dev-net-tun
+        hostPath:
+          path: /dev/net/tun

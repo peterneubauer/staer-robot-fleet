@@ -7,4 +7,4 @@ kind: Kustomization
 resources:
   - ../../collections/stable/robot-fleet
   - ../../collections/stable/staer-client
-  # - ../../collections/stable/tailscale     # TODO: Enable when components are ready
+  - ../../collections/stable/tailscale
