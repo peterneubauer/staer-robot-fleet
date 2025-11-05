@@ -18,7 +18,7 @@ spec:
       serviceAccountName: staer-client
       containers:
       - name: staer-client
-        image: registry.digitalocean.com/staer/staer-staer-client_locstag:main-ccd3c6b-1762287685
+        image: ros:humble-ros-base  # Temporary: ARM64-compatible placeholder until multi-arch image is built
         imagePullPolicy: Always
         env:
         - name: DEVICE_UUID
@@ -43,5 +43,5 @@ spec:
           limits:
             memory: "2Gi"
             cpu: "2000m"
-      imagePullSecrets:
-      - name: staer-registry
+      # imagePullSecrets:  # Not needed for public Docker Hub images
+      # - name: staer-registry
