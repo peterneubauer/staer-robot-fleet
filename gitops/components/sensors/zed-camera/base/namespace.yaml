@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: zed
+  labels:
+    name: zed
+    component: sensor

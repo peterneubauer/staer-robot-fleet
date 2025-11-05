@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zed-camera
+  namespace: zed
+  labels:
+    app: zed-camera
+    component: sensor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zed-camera
+  template:
+    metadata:
+      labels:
+        app: zed-camera
+    spec:
+      hostNetwork: false  # ROS2 DDS works fine without hostNetwork
+      containers:
+      - name: zed-wrapper
+        # Using Husarion's pre-built image for now
+        # TODO: Build custom image with: l4t-r36.3.0 + zedsdk-4.2.5 + ROS2 Humble
+        image: husarion/zed-ros2-wrapper:humble
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true  # Required for USB camera access
+        env:
+        - name: ROS_DOMAIN_ID
+          value: "0"  # Must match staer-client
+        - name: ZED_CAMERA_MODEL
+          value: "zed2i"  # Adjust based on actual camera model
+        volumeMounts:
+        # Mount USB video devices
+        - name: dev-video0
+          mountPath: /dev/video0
+        - name: dev-video1
+          mountPath: /dev/video1
+        # Mount USB bus for camera control
+        - name: usb-devices
+          mountPath: /dev/bus/usb
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "4000m"
+            nvidia.com/gpu: "1"  # Request GPU for depth processing
+      volumes:
+      - name: dev-video0
+        hostPath:
+          path: /dev/video0
+          type: CharDevice
+      - name: dev-video1
+        hostPath:
+          path: /dev/video1
+          type: CharDevice
+      - name: usb-devices
+        hostPath:
+          path: /dev/bus/usb
+          type: Directory

@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Stable overlay for ZED Camera
+# Production configuration for stable environment
+
+resources:
+  - ../../base
+
+# Future: Add patches here for production-specific settings
+# patches:
+#   - target:
+#       kind: Deployment
+#       name: zed-camera
+#     patch: |-
+#       - op: replace
+#         path: /spec/template/spec/containers/0/resources/limits/memory
+#         value: 4Gi
