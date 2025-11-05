@@ -24,7 +24,7 @@ spec:
         #   from https://github.com/stereolabs/zed-ros2-wrapper/tree/master/docker
         image: registry.digitalocean.com/staer/ros_zed_2i:latest
         imagePullPolicy: Always
-        command: ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && source /ros_ws/install/setup.bash && ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i"]
+        command: ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && cd /ros_ws && colcon build --symlink-install && source install/setup.bash && ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i"]
         securityContext:
           privileged: true  # Required for USB camera access
         env:
