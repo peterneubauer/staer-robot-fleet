@@ -31,12 +31,8 @@ spec:
         - name: ZED_CAMERA_MODEL
           value: "zed2i"  # Adjust based on actual camera model
         volumeMounts:
-        # Mount USB video devices
-        - name: dev-video0
-          mountPath: /dev/video0
-        - name: dev-video1
-          mountPath: /dev/video1
         # Mount USB bus for camera control
+        # Note: /dev/video* devices will be created automatically when camera is connected
         - name: usb-devices
           mountPath: /dev/bus/usb
         resources:
@@ -48,14 +44,6 @@ spec:
             cpu: "4000m"
             # nvidia.com/gpu: "1"  # TODO: Enable when GPU support is configured in K3s
       volumes:
-      - name: dev-video0
-        hostPath:
-          path: /dev/video0
-          type: CharDevice
-      - name: dev-video1
-        hostPath:
-          path: /dev/video1
-          type: CharDevice
       - name: usb-devices
         hostPath:
           path: /dev/bus/usb
