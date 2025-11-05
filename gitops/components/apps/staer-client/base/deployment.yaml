@@ -20,6 +20,7 @@ spec:
       - name: staer-client
         image: ros:humble-ros-base  # Temporary: ARM64-compatible placeholder until multi-arch image is built
         imagePullPolicy: Always
+        command: ["/bin/bash", "-c", "sleep infinity"]  # Keep container running for testing
         env:
         - name: DEVICE_UUID
           valueFrom:
