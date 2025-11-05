@@ -37,6 +37,21 @@ spec:
             secretKeyRef:
               name: staer-tokens
               key: doctl-token
+        - name: STAER_API_URL
+          valueFrom:
+            secretKeyRef:
+              name: staer-tokens
+              key: staer-api-url
+        - name: STAER_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: staer-tokens
+              key: staer-api-token
+        - name: ROBOT_NAME
+          valueFrom:
+            secretKeyRef:
+              name: staer-tokens
+              key: robot-name
         resources:
           requests:
             memory: "512Mi"
