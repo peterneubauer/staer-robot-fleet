@@ -18,7 +18,7 @@ spec:
       serviceAccountName: staer-client
       containers:
       - name: staer-client
-        image: registry.digitalocean.com/staer/staer-staer-client:arm64-webrtc-fix
+        image: registry.digitalocean.com/staer/staer-client:websocket-timeout-fix
         imagePullPolicy: Always
         env:
         - name: DEVICE_UUID
@@ -51,6 +51,10 @@ spec:
             secretKeyRef:
               name: staer-tokens
               key: robot-name
+        - name: WEBSOCKET_PING_INTERVAL_SECONDS
+          value: "30"
+        - name: WEBSOCKET_PING_TIMEOUT_SECONDS
+          value: "20"
         resources:
           requests:
             memory: "512Mi"
